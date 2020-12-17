@@ -29,6 +29,7 @@ export default {
       name: "",
       keys:{
         sendTime: '时间',
+        vitalSignsIp: 'ip',
         patBodyTemperature: '体温',
         patSphygmus: '脉搏',
         patBloodOxygen: '血氧',
@@ -47,7 +48,7 @@ export default {
   methods: {
     onGetList(list) {
       console.log("push event", list);
-      this.list.push(...list);
+      this.list.unshift(...list);
     },
     onLogin() {
       console.log('login')
