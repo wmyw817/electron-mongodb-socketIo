@@ -1,21 +1,28 @@
 <template>
 <div class="right-data">
-  <ECG></ECG>
-  <NIBP></NIBP>
-  <TEMP></TEMP>
-  <SpO2></SpO2>
-  <RESP></RESP>
+  <ECG :data="data"></ECG>
+  <NIBP :data="data"></NIBP>
+  <TEMP :data="data"></TEMP>
+  <SpO2 :data="data"></SpO2>
+  <RESP :data="data"></RESP>
 </div>
 </template>
 
 <script>
-import ECG from './RightData/ECG'
-import NIBP from './RightData/NIBP'
-import TEMP from './RightData/TEMP'
-import SpO2 from './RightData/SpO2'
-import RESP from './RightData/RESP'
+import ECG from './rightData/ECG'
+import NIBP from './rightData/NIBP'
+import TEMP from './rightData/TEMP'
+import SpO2 from './rightData/SpO2'
+import RESP from './rightData/RESP'
+import VitalSign from "@/models/vitalSign";
 export default {
   name: "RightData",
+  props: {
+    data: {
+      required: true,
+      type: VitalSign
+    }
+  },
   components:{
     ECG,
     NIBP,
@@ -29,10 +36,11 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/index";
 .right-data {
-
   display: grid;
   grid-template-rows: repeat(5, auto);
-
+  &>* {
+    align-content: center;
+  }
   &>*:not(:last-child) {
     border-bottom: 1px dotted $border-color;
   }
