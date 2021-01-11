@@ -1,6 +1,6 @@
 <template>
 <div class="left-wave">
-  <ECG :listI="listI" :startTime="startTime"></ECG>
+  <ECG :listI="listI" :listII="listII" :startTime="startTime"></ECG>
   <PLETH></PLETH>
   <RESP></RESP>
 </div>
@@ -23,10 +23,13 @@ export default {
       required: true,
       type: LinkedListMax
     },
+    listII: {
+      required: true,
+      type: LinkedListMax
+    },
     startTime:{
-      required: false,
-      type: Number,
-      default: undefined
+      required: true,
+      type: Number
     }
   }
 }

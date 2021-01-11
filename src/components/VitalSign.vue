@@ -1,7 +1,7 @@
 <template>
   <div class="vital-sign">
     <TopStatus></TopStatus>
-    <LeftWave :listI="listI" :startTime="nowTime"></LeftWave>
+    <LeftWave :listI="listI" :listII="listII" :startTime="startTime"></LeftWave>
     <RightData :data="rightData"></RightData>
     <BottomSetting></BottomSetting>
   </div>
@@ -12,12 +12,10 @@ import TopStatus from "./VitalSign/TopStatus";
 import LeftWave from "./VitalSign/LeftWave";
 import RightData from "./VitalSign/RightData";
 import BottomSetting from "./VitalSign/BottomSetting";
-import io from "socket.io-client";
-import { URL } from "@/config/URL";
 import VitalSign from "@/models/vitalSign";
 import { LinkedListMax } from "@/models/linkedList";
-import { equalsECG } from "@/utils";
 import PointECG from "@/models/PointECG";
+import Socket from '@/utils/socket'
 export default {
   name: "VitalSign",
   components: {
@@ -30,50 +28,44 @@ export default {
     return {
       io: null,
       rightData: new VitalSign(),
-      listI: new LinkedListMax(500, equalsECG),
-      nowTime: undefined,
+      listI: new LinkedListMax(700),
+      listII: new LinkedListMax(700),
+      startTime: new Date().getTime(),
     };
   },
+  created() {
+
+  },
   mounted() {
-    this.initIo();
+    Socket.create(1)
+    Socket.on("connect", function () {
+      console.log("connect");
+    });
+    Socket.on("disconnect", function () {
+      console.log("disconnect");
+    });
+    Socket.on("push_event", this.onPushEvent);
+    Socket.on("push_oscillo_event", this.onGetWave);
+    Socket.on("push_oscillo_event2", this.onGetWave2);
   },
   beforeDestroy() {
-    if (this.io) {
-      this.io.close();
-      this.io = null;
-    }
+    Socket.destroy()
   },
   methods: {
     onPushEvent(data) {
       this.rightData.update(data);
-      console.log("push event", data);
+      // console.log("push event", data);
     },
     onGetWave(data) {
-      if (this.listI.size() === 0) {
-        this.nowTime = +data.time;
-      }
-      const point = new PointECG(data, this.nowTime);
+      // console.log('push_oscillo_event', data)
+      const point = new PointECG(data, this.startTime);
       this.listI.push(point);
     },
-    initIo() {
-      if (this.io) {
-        this.io.close();
-        this.io = null;
-      }
-      this.io = io(URL.SOCKET, {
-        query: {
-          loginUserNum: 1,
-        },
-      });
-      this.io.on("connect", function () {
-        console.log("connect");
-      });
-      this.io.on("disconnect", function () {
-        console.log("disconnect");
-      });
-      this.io.on("push_event", this.onPushEvent);
-      this.io.on("push_oscillo_event", this.onGetWave);
-    },
+    onGetWave2(data) {
+      // console.log('push_oscillo_event2', data)
+      const point = new PointECG(data, this.startTime);
+      this.listII.push(point);
+    }
   },
 };
 </script>
@@ -84,7 +76,7 @@ export default {
   height: 100%;
   display: grid;
   grid-template-rows: 40px auto 40px;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 1080px 1fr;
   background: $background;
 }
 </style>

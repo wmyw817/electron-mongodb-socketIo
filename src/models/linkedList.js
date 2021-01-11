@@ -106,6 +106,24 @@ export class LinkedList {
     return this.head;
   }
 
+  filter(fn) {
+    const arr = [];
+    let current = this.head;
+    if (current) {
+      for (let i = 0; ; i++) {
+        if (fn(current.element, i)) {
+          arr.push(current.element);
+        }
+        if (current.next) {
+          current = current.next;
+        } else {
+          break;
+        }
+      }
+    }
+    return arr;
+  }
+
   toString() {
     if (this.head == null) {
       return "";
@@ -133,14 +151,12 @@ export class LinkedListMax extends LinkedList {
     }
   }
 
-  getElementByTime(time) {
-    const node = this.getElement({
-      time
-    });
-    if (node) {
-      return node.element;
-    }
-    return undefined;
+  filter(fn) {
+    const arr = super.filter(fn);
+    arr.forEach(item => {
+      this.remove(item)
+    })
+    return arr
   }
 
   toString() {
