@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <VitalSign></VitalSign>
+<!--    <VitalSign></VitalSign>-->
+    <MonitorList></MonitorList>
   </div>
 </template>
 
 <script>
-import VitalSign from './components/VitalSign.vue'
+// import VitalSign from './components/VitalSign.vue'
+import MonitorList from './components/MonitorList.vue'
 
 export default {
   name: 'App',
   components: {
-    VitalSign
+    MonitorList
   }
 }
 </script>

@@ -153,10 +153,10 @@ export class LinkedListMax extends LinkedList {
 
   filter(fn) {
     const arr = super.filter(fn);
-    arr.forEach(item => {
-      this.remove(item)
-    })
-    return arr
+    arr.forEach((item) => {
+      this.remove(item);
+    });
+    return arr;
   }
 
   toString() {

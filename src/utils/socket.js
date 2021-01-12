@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import { URL } from '@/config/URL'
-class Socket {
+export class Socket {
   constructor () {
     this.instance = null
   }
