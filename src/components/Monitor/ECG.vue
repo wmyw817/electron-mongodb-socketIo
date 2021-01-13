@@ -1,47 +1,45 @@
 <template>
-  <canvas ref="canvas" width="1050" height="180">不支持canvas</canvas>
+  <canvas ref="canvas" width="840" height="200">不支持canvas</canvas>
 </template>
 
 <script>
-import {ref, onMounted, onBeforeUnmount} from "@vue/composition-api";
-import useECG from "./composables/useECG";
-// import {Socket} from "@/utils/socket";
+import { ref, onMounted, onBeforeUnmount } from "@vue/composition-api";
+import useECG from "@/composables/useECG";
 export default {
   name: "ECG",
-  props:{
+  props: {
     socket: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const canvas = ref(null);
-    const scaleX = ((10 / 10) * 1050) / 7000;
+    const scaleX = (10 / 10) * (840 / 7000);
     const scaleY = 10 / 0.2;
-    const timeOffset = 800;
-    const { startDraw, handleGetPoint } = useECG(
+    const { startDraw, handleGetPoint, cancelAnimation } = useECG(
       canvas,
       scaleX,
       scaleY,
-      timeOffset
+      0,
+      0
     );
-
+    const {
+      startDraw: startDraw2,
+      handleGetPoint: handleGetPoint2,
+      cancelAnimation: cancelAnimation2,
+    } = useECG(canvas, scaleX, scaleY, 0, 100);
+    props.socket.on("push_oscillo_1event", handleGetPoint);
+    props.socket.on("push_oscillo_2event", handleGetPoint2);
     onMounted(() => {
       startDraw();
-      props.socket.on("push_oscillo_event", handleGetPoint);
-      props.socket.on('connect', () => {
-        console.log('connect')
-      })
-      props.socket.on('disconnect', () => {
-        console.log('disconnect')
-      })
+      startDraw2();
     });
 
     onBeforeUnmount(() => {
-      // cancelAnimation()
-      // props.socket.off("push_oscillo_event", handleGetPoint);
-      console.log('unmounted ')
-    })
+      cancelAnimation();
+      cancelAnimation2();
+    });
 
     return {
       canvas,

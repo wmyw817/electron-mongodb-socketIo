@@ -163,10 +163,23 @@ export class LinkedListMax extends LinkedList {
     if (this.head == null) {
       return "";
     }
-    let objString = `${this.head.element.x} ${this.head.element.y}`;
+    let objString = `${this.head.element.time} ${this.head.element.value}`;
     let current = this.head.next;
     for (let i = 1; i < this.count && current != null; i++) {
-      objString += `,${current.element.x} ${current.element.y}`;
+      objString += `\n${current.element.time} ${current.element.value}`;
+      current = current.next;
+    }
+    return objString;
+  }
+
+  toTimeFn(fn) {
+    if (this.head == null) {
+      return "";
+    }
+    let objString = fn(this.head.element.time);
+    let current = this.head.next;
+    for (let i = 1; i < this.count && current != null; i++) {
+      objString += `\n${fn(current.element.time)}`;
       current = current.next;
     }
     return objString;

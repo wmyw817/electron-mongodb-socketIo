@@ -8,7 +8,7 @@ export default class VitalSign {
     this.DBP = "---";
     this.PULSE = "---";
     this.SBP = "---";
-    this.RESP = "---";
+    this.RESP = "--";
   }
 
   update(obj) {
@@ -23,6 +23,7 @@ export default class VitalSign {
       patDiastolicPressure: this.DBP = "---",
       patSphygmus: this.PULSE = "---",
       patSystolicPressure: this.SBP = "---",
+      patRespiration: this.RESP = "--",
     } = obj);
   }
 }
