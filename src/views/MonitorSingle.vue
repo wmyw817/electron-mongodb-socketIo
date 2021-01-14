@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import TopStatus from './VitalSign/TopStatus'
-import LeftWave from './VitalSign/LeftWave'
-import RightData from './VitalSign/RightData'
-import BottomSetting from './VitalSign/BottomSetting'
+import TopStatus from '@/components/VitalSign/TopStatus'
+import LeftWave from '@/components/VitalSign/LeftWave'
+import RightData from '@/components/VitalSign/RightData'
+import BottomSetting from '@/components/VitalSign/BottomSetting'
 import VitalSign from '@/models/vitalSign'
 
 import Socket from '@/utils/socket'
 export default {
-  name: 'VitalSign',
+  name: 'MonitorSingle',
   components: {
     TopStatus,
     LeftWave,
