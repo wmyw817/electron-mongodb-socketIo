@@ -20,26 +20,26 @@
 </template>
 
 <script>
-import VitalSign from "../../models/vitalSign";
-import { reactive } from "@vue/composition-api";
+import VitalSign from '@/models/vitalSign'
+import { reactive } from '@vue/composition-api'
 export default {
-  name: "Sign",
+  name: 'Sign',
   props: {
     socket: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
-  setup(props) {
-    const sign = reactive(new VitalSign());
-    props.socket.on("push_event", (data) => {
-      sign.update(data);
-    });
+  setup (props) {
+    const sign = reactive(new VitalSign())
+    props.socket.on('push_event', (data) => {
+      sign.update(data)
+    })
     return {
-      sign,
-    };
-  },
-};
+      sign
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

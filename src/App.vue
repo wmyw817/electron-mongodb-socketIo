@@ -1,34 +1,35 @@
 <template>
   <div id="app">
-<!--    <VitalSign></VitalSign>-->
-    <MonitorList></MonitorList>
+<!--    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>-->
+    <router-view/>
   </div>
 </template>
 
-<script>
-// import VitalSign from './components/VitalSign.vue'
-import MonitorList from './components/MonitorList.vue'
-
-export default {
-  name: 'App',
-  components: {
-    MonitorList
-  }
-}
-</script>
-
-<style>
-#app {
-  //font-family: Avenir, Helvetica, Arial, sans-serif;
-  //-webkit-font-smoothing: antialiased;
-  //-moz-osx-font-smoothing: grayscale;
-  //text-align: center;
-  //color: #2c3e50;
-  //margin-top: 60px;
-  width: 100vw;
-  height: 100vh;
-}
-body{
+<style lang="scss">
+body {
   margin: 0;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>

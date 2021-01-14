@@ -1,187 +1,187 @@
-import { defaultEquals } from "../utils";
+import { defaultEquals } from '../utils'
 
 class Node {
-  constructor(element) {
-    this.element = element;
-    this.next = undefined;
+  constructor (element) {
+    this.element = element
+    this.next = undefined
   }
 }
 
 export class LinkedList {
-  constructor(equalsFn = defaultEquals) {
-    this.count = 0;
-    this.head = undefined;
-    this.equalsFn = equalsFn;
+  constructor (equalsFn = defaultEquals) {
+    this.count = 0
+    this.head = undefined
+    this.equalsFn = equalsFn
   }
 
-  push(element) {
-    const node = new Node(element);
-    let current;
+  push (element) {
+    const node = new Node(element)
+    let current
     if (this.head == null) {
-      this.head = node;
+      this.head = node
     } else {
-      current = this.head;
+      current = this.head
       while (current.next != null) {
-        current = current.next;
+        current = current.next
       }
-      current.next = node;
+      current.next = node
     }
-    this.count++;
+    this.count++
   }
 
-  removeAt(index) {
+  removeAt (index) {
     if (index >= 0 && index < this.count) {
-      let current = this.head;
+      let current = this.head
       if (index === 0) {
-        this.head = current.next;
+        this.head = current.next
       } else {
-        const previous = this.getElementAt(index - 1);
-        current = previous.next;
-        previous.next = current.next;
+        const previous = this.getElementAt(index - 1)
+        current = previous.next
+        previous.next = current.next
       }
-      this.count--;
-      return current.element;
+      this.count--
+      return current.element
     }
-    return undefined;
+    return undefined
   }
 
-  getElementAt(index) {
+  getElementAt (index) {
     if (index >= 0 && index < this.count) {
-      let node = this.head;
+      let node = this.head
       for (let i = 0; i < index; i++) {
-        node = node.next;
+        node = node.next
       }
-      return node;
+      return node
     }
-    return undefined;
+    return undefined
   }
 
-  getElement(element) {
-    const index = this.indexOf(element);
-    return this.getElementAt(index);
+  getElement (element) {
+    const index = this.indexOf(element)
+    return this.getElementAt(index)
   }
 
-  insert(index, element) {
+  insert (index, element) {
     if (index >= 0 && index <= this.count) {
-      const node = new Node(element);
+      const node = new Node(element)
       if (index === 0) {
-        node.next = this.head;
-        this.head = node;
+        node.next = this.head
+        this.head = node
       } else {
-        const previous = this.getElementAt(index - 1);
-        node.next = previous.next;
-        previous.next = node;
+        const previous = this.getElementAt(index - 1)
+        node.next = previous.next
+        previous.next = node
       }
-      this.count++;
-      return true;
+      this.count++
+      return true
     }
-    return false;
+    return false
   }
 
-  indexOf(element) {
-    let current = this.head;
+  indexOf (element) {
+    let current = this.head
     for (let i = 0; i < this.count && current.element; i++) {
       if (this.equalsFn(current.element, element)) {
-        return i;
+        return i
       }
-      current = current.next;
+      current = current.next
     }
-    return -1;
+    return -1
   }
 
-  remove(element) {
-    const index = this.indexOf(element);
-    return this.removeAt(index);
+  remove (element) {
+    const index = this.indexOf(element)
+    return this.removeAt(index)
   }
 
-  isEmpty() {
-    return this.size() === 0;
+  isEmpty () {
+    return this.size() === 0
   }
 
-  size() {
-    return this.count;
+  size () {
+    return this.count
   }
 
-  getHead() {
-    return this.head;
+  getHead () {
+    return this.head
   }
 
-  filter(fn) {
-    const arr = [];
-    let current = this.head;
+  filter (fn) {
+    const arr = []
+    let current = this.head
     if (current) {
       for (let i = 0; ; i++) {
         if (fn(current.element, i)) {
-          arr.push(current.element);
+          arr.push(current.element)
         }
         if (current.next) {
-          current = current.next;
+          current = current.next
         } else {
-          break;
+          break
         }
       }
     }
-    return arr;
+    return arr
   }
 
-  toString() {
+  toString () {
     if (this.head == null) {
-      return "";
+      return ''
     }
-    let objString = `${this.head.element}`;
-    let current = this.head.next;
+    let objString = `${this.head.element}`
+    let current = this.head.next
     for (let i = 1; i < this.count && current != null; i++) {
-      objString += `,${current.element}`;
-      current = current.next;
+      objString += `,${current.element}`
+      current = current.next
     }
-    return objString;
+    return objString
   }
 }
 
 export class LinkedListMax extends LinkedList {
-  constructor(maxCount, equalsFn) {
-    super(equalsFn);
-    this.maxCount = maxCount;
+  constructor (maxCount, equalsFn) {
+    super(equalsFn)
+    this.maxCount = maxCount
   }
 
-  push(element) {
-    super.push(element);
+  push (element) {
+    super.push(element)
     if (this.count > this.maxCount) {
-      this.removeAt(0);
+      this.removeAt(0)
     }
   }
 
-  filter(fn) {
-    const arr = super.filter(fn);
+  filter (fn) {
+    const arr = super.filter(fn)
     arr.forEach((item) => {
-      this.remove(item);
-    });
-    return arr;
+      this.remove(item)
+    })
+    return arr
   }
 
-  toString() {
+  toString () {
     if (this.head == null) {
-      return "";
+      return ''
     }
-    let objString = `${this.head.element.time} ${this.head.element.value}`;
-    let current = this.head.next;
+    let objString = `${this.head.element.time} ${this.head.element.value}`
+    let current = this.head.next
     for (let i = 1; i < this.count && current != null; i++) {
-      objString += `\n${current.element.time} ${current.element.value}`;
-      current = current.next;
+      objString += `\n${current.element.time} ${current.element.value}`
+      current = current.next
     }
-    return objString;
+    return objString
   }
 
-  toTimeFn(fn) {
+  toTimeFn (fn) {
     if (this.head == null) {
-      return "";
+      return ''
     }
-    let objString = fn(this.head.element.time);
-    let current = this.head.next;
+    let objString = fn(this.head.element.time)
+    let current = this.head.next
     for (let i = 1; i < this.count && current != null; i++) {
-      objString += `\n${fn(current.element.time)}`;
-      current = current.next;
+      objString += `\n${fn(current.element.time)}`
+      current = current.next
     }
-    return objString;
+    return objString
   }
 }

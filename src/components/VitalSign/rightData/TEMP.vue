@@ -11,22 +11,22 @@
 </template>
 
 <script>
-import VitalSign from "@/models/vitalSign";
+import VitalSign from '@/models/vitalSign'
 export default {
-  name: "TEMP",
+  name: 'TEMP',
   props: {
     data: {
       required: true,
-      type: VitalSign,
-    },
+      type: VitalSign
+    }
   },
-  data() {
+  data () {
     return {
       temp1: 32.2,
-      temp2: "--.-",
-    };
-  },
-};
+      temp2: '--.-'
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

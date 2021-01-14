@@ -15,20 +15,20 @@
 </template>
 
 <script>
-import VitalSign from "@/models/vitalSign";
+import VitalSign from '@/models/vitalSign'
 
 export default {
-name: "ECG",
+  name: 'ECG',
   props: {
     data: {
       required: true,
       type: VitalSign
     }
   },
-  data() {
-  return {
-    heartRate: '80'
-  }
+  data () {
+    return {
+      heartRate: '80'
+    }
   }
 }
 </script>
@@ -43,7 +43,6 @@ name: "ECG",
   justify-content: space-between;
   font-size: 22px;
   padding: 10px;
-
 
   .top {
     grid-column: span 3;

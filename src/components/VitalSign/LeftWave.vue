@@ -7,16 +7,16 @@
 </template>
 
 <script>
-import ECG from "./leftWave/ECG";
-import PLETH from "./leftWave/PLETH";
-import RESP from "./leftWave/RESP";
+import ECG from './leftWave/ECG'
+import PLETH from './leftWave/PLETH'
+import RESP from './leftWave/RESP'
 export default {
-  name: "LeftWave",
-  components:{
+  name: 'LeftWave',
+  components: {
     ECG,
     PLETH,
-    RESP,
-  },
+    RESP
+  }
 }
 </script>
 

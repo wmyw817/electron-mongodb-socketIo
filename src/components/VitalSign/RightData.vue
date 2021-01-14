@@ -14,21 +14,21 @@ import NIBP from './rightData/NIBP'
 import TEMP from './rightData/TEMP'
 import SpO2 from './rightData/SpO2'
 import RESP from './rightData/RESP'
-import VitalSign from "@/models/vitalSign";
+import VitalSign from '@/models/vitalSign'
 export default {
-  name: "RightData",
+  name: 'RightData',
   props: {
     data: {
       required: true,
       type: VitalSign
     }
   },
-  components:{
+  components: {
     ECG,
     NIBP,
     TEMP,
     SpO2,
-    RESP,
+    RESP
   }
 }
 </script>

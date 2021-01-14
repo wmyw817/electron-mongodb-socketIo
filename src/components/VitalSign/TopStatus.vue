@@ -4,7 +4,7 @@
 
 <script>
 export default {
-name: "TopStatus"
+  name: 'TopStatus'
 }
 </script>
 

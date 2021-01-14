@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import Monitor from "./Monitor/Monitor";
+import Monitor from '@/components/Monitor'
 export default {
-  name: "MonitorList",
-  components:{
+  name: 'MonitorList',
+  components: {
     Monitor
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

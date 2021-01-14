@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import VitalSign from "@/models/vitalSign";
+import VitalSign from '@/models/vitalSign'
 export default {
-  name: "RESP",
+  name: 'RESP',
   props: {
     data: {
       required: true,
-      type: VitalSign,
-    },
+      type: VitalSign
+    }
   },
-  data() {
+  data () {
     return {
       value: '25'
     }
